@@ -17,9 +17,9 @@ class BootStrap {
   
 
  void createUsers(){
-     User user=new User	(firstName:"anusha",email:"anusha@gmail.com",username:"anushanair",password:"anushanair",passwordConfirm:"anushanair",lastName:"nair");
+     User user=new User	(firstName:"anusha",email:"anusha@gmail.com",username:"anushanair",password:"anushanair",lastName:"nair");
       saveObject(user);
-    user=new User(firstName:"nimisha",email:"nimisha@gmail.com",username:"nimishanair",password:"nimishanair",passwordConfirm:"nimishanair",lastName:"nair");
+    user=new User(firstName:"nimisha",email:"nimisha@gmail.com",username:"nimishanair",password:"nimishanair",lastName:"nair");
       
 	saveObject(user);
 	}
@@ -27,13 +27,12 @@ class BootStrap {
 
 void createTopics(){
     
-        List users=User.list();
+        List<User> users=User.list();
         users.each {user->
               5.times{
                 Topic topic=new Topic(name:"Topic ${it+1}" ,visibility:Visibility.PUBLIC )
                 user.addToTopics(topic)
-                user.addToSubscriptions(new Subscription(topic:topic,seriousness:Seriousness.SERIOUS))
-                saveObject(user);
+                user.save(flush:true)
 	
         }
 
@@ -44,12 +43,14 @@ void createTopics(){
 
 void createResources(){
     
-       List topics=Topic.list();
-       topics.eachWithIndex {  topic,index->
-	
-	    User user=User.findById(index%2+1)
+       List<Topic> topics=Topic.list();
 
-           topic.addToResources(
+
+       topics.eachWithIndex {  topic,index->
+
+		   	    User user=User.findById(index%2+1)
+
+   topic.addToResources(
 		new LinkResource(creater:user, title:"link tittle ${index+1}",description:"link tiitle${index+1}	descripion", url:"https://grails.github.io/grails-doc/link${index+1}"  ) 
 		)
 
@@ -74,7 +75,7 @@ User.list().each{user->
 	user.addToReadingItems(new ReadingItem(resource:Resource.get(Math.abs(random.nextInt() % size)),isRead:true   ))
 	user.addToReadingItems(new ReadingItem(resource:Resource.get(Math.abs(random.nextInt() % size)),isRead:true   ))
    saveObject(user);
- 
+ 	
      }
 
 }
