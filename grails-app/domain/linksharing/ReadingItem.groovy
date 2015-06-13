@@ -1,9 +1,12 @@
 package linksharing
 
 class ReadingItem {
-	Boolean IsRead
-	Resource resource
-	User user
+	Boolean isRead
+	
+	static belongsTo=[user:User,resource:Resource]
+	String toString()
+	{return resource}
+	
 
     static constraints = {
     }

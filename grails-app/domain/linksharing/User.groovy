@@ -6,14 +6,20 @@ class User {
 	String password
 	String firstName
 	String lastName
-	byte photo
-	Boolean admin
-	Boolean active
+	byte[] photo
+	Boolean admin=false
+	Boolean active=false
 	Date dateCreated
 	Date lastUpdated
 
-    static constraints = {
-    }
-	
-	static hasMany = [topics:Topic, subs:Subscription, rr:ResourceRating,readingitem:ReadingItem]
+	static hasMany=[topics:Topic,subscriptions:Subscription,readingItems:ReadingItem,resourceRatings:ResourceRating]
+	static constraints = {
+	photo (nullable:true)
+	email(email: true,blank:false,unique:true)
+	password (password:true,blank: false, nullable: false)
+	}
+	String toString()
+	{
+	return firstName+" "+lastName
+	}
 }

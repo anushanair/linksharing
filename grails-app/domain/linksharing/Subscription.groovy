@@ -1,11 +1,12 @@
 package linksharing
 
 class Subscription {
-	Topic topic
-	User user
 	Date datecreated
 	Seriousness seriousness
-    static constraints = {
-    }
 	
+static belongsTo=[user:User,topic:Topic]
+static constraints = {
+user unique:'topic'
+seriousness blank:false,nullable:false
+}
 }

@@ -1,9 +1,13 @@
 package linksharing
 
 class ResourceRating {
-	Resource resource
-	User user
 	Integer score
+	static belongsTo=[user:User,resource:Resource]
+	String toString()
+	{
+	return score
+	}
+	
     static constraints = {
     }
 }
