@@ -1,0 +1,21 @@
+package linksharing
+
+class User {
+	String email
+	String username
+	String password
+	String firstName
+	String lastName
+	byte photo
+	Boolean admin=false
+	Boolean active=false
+	Date dateCreated
+	Date lastUpdated
+
+    static constraints = {
+	photo nullable:true
+	
+    }
+	
+	static hasMany = [topics:Topic, subs:Subscription, rr:ResourceRating,readingitem:ReadingItem]
+}

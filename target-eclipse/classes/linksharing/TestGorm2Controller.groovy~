@@ -1,0 +1,6 @@
+package linksharing
+
+class TestGorm2Controller {
+
+    def index() { }
+}
